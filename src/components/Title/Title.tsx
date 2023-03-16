@@ -24,13 +24,15 @@ const Title = ({
   return (
     <h1
       className={clsx(
-        fontSize ? `text-[${fontSize}px]` : "text-5xl",
-        color ? `text-[${color}]` : "text-black",
+        fontSize
+          ? `text-[${fontSize}px]`
+          : "text-5xl tablet:text-4xl mobile:text-2xl",
+        color ? `text-[${color}]` : "text-white",
         textAlign ? `text-${textAlign}` : "text-start",
         width ? `w-[${width}]` : "w-fit",
         textTransform,
         fontWeight ? `font-${fontWeight}` : "font-bold",
-        "font-maven"
+        "font-sans"
       )}
     >
       {children}

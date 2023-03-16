@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
-import "../styles/globals.css";
+import "@src/styles/globals.css";
+import { MovieProvider } from "@src/contexts/movieContext";
+import Head from "next/head";
+import Nav from "@src/components/Nav";
 
 export const metadata = {
   title: "Create Next App",
@@ -9,7 +12,19 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+        />
+      </head>
+
+      <body className="bg-black">
+        <MovieProvider>
+          <Nav />
+          <div className="mt-16">{children}</div>
+        </MovieProvider>
+      </body>
     </html>
   );
 }

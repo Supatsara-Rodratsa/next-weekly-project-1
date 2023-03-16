@@ -4,7 +4,9 @@
     "eslint:recommended",
     "plugin:prettier/recommended"
   ],
-  "rules": {},
+  "rules": {
+    "no-unused-vars": "off"
+  },
   "ignorePatterns": ["!.*", "dist", "node_modules"],
   "overrides": [
     {
