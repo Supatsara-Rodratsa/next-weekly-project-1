@@ -27,7 +27,7 @@ type RelatedMovie = {
 };
 
 export type AxiosProps<T = string> = {
-  method: "POST" | "GET" | "PUT";
+  method?: "POST" | "GET" | "PUT";
   responseType?: ResponseType;
   url: string;
   data?: T;

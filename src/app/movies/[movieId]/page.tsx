@@ -1,10 +1,23 @@
-export default function MovieDetail() {
-  //   const { useMovieData, movieData } = useMovie();
-  //   useMovieData({ method: "GET", url: "data/movies.json" });
+import Movie from "@src/components/Movie";
+import MovieData from "@src/data/movies.json";
+import { MovieObject } from "@src/types/types";
 
+type MetaDataProps = {
+  params: { movieId: string };
+};
+
+export async function generateMetadata({ params }: MetaDataProps) {
+  // TODO fetch movie and set title
+  return {
+    title: params.movieId,
+  };
+}
+
+export default function MovieDetail({ params }: MetaDataProps) {
+  console.log(params, ":: current params");
   return (
-    <div className="flex w-full min-h-[calc(100vh_-_64px)] justify-center items-center m-auto p-7 text-white">
-      Hi
+    <div>
+      <Movie movieDetail={MovieData as MovieObject} />
     </div>
   );
 }

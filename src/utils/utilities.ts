@@ -1,3 +1,5 @@
+import { AxiosProps } from "@src/types/types";
+
 export function countingRating(score: number): string[] {
   let starItem = [];
   let totalScore = (score * 5) / 10;
@@ -16,4 +18,22 @@ export function countingRating(score: number): string[] {
   }
 
   return starItem;
+}
+
+export function blobToBase64(blob: Blob) {
+  return new Promise((resolve, _) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
+}
+
+export async function getAPIMethod({ url, responseType }: AxiosProps) {
+  console.log(url);
+
+  const res = await fetch(url);
+  if (responseType === "blob") {
+    return await res.blob();
+  }
+  return await res.json();
 }

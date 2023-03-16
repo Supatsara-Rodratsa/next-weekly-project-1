@@ -1,6 +1,5 @@
 "use client";
-import useAxios from "@src/hooks/useAxios";
-import { AxiosProps, MovieObject } from "@src/types/types";
+import { MovieObject } from "@src/types/types";
 import {
   ReactNode,
   createContext,
@@ -11,7 +10,9 @@ import {
 
 type MovieContextType = {
   movieData: MovieObject | undefined;
-  useMovieData({ method, url }: AxiosProps): void;
+  setShowHigherResolutionImage(arg: boolean): void;
+  showHigherResolutionImage: boolean;
+  setMovieData(arg: MovieObject | undefined): void;
 };
 
 type MovieContextProps = {
@@ -20,7 +21,9 @@ type MovieContextProps = {
 
 const movieContextDefaultValues: MovieContextType = {
   movieData: undefined,
-  useMovieData: () => {},
+  setShowHigherResolutionImage: () => false,
+  showHigherResolutionImage: false,
+  setMovieData: () => null,
 };
 
 const MovieContext = createContext<MovieContextType>(movieContextDefaultValues);
@@ -31,22 +34,18 @@ export function useMovie() {
 
 export function MovieProvider({ children }: MovieContextProps) {
   const [movieData, setMovieData] = useState<MovieObject>();
-
-  const useMovieData = ({ method, url }: AxiosProps) => {
-    const { response } = useAxios({
-      method,
-      url,
-    } as Pick<AxiosProps, "method" | "url">);
-
-    useEffect(() => {
-      if (response) {
-        setMovieData(response as MovieObject);
-      }
-    }, [response]);
-  };
+  const [showHigherResolutionImage, setShowHigherResolutionImage] =
+    useState<boolean>(false);
 
   return (
-    <MovieContext.Provider value={{ movieData, useMovieData }}>
+    <MovieContext.Provider
+      value={{
+        movieData,
+        setMovieData,
+        showHigherResolutionImage,
+        setShowHigherResolutionImage,
+      }}
+    >
       {children}
     </MovieContext.Provider>
   );

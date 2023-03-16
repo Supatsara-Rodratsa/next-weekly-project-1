@@ -10,15 +10,12 @@ import Icon from "../Icon";
 import { COLORS, ICON } from "@src/constants/constants";
 import Image from "next/image";
 import { css } from "@emotion/css";
-import Button from "../Button";
-import { useRouter } from "next/navigation";
 
 type MovieProps = {
   movieDetail: MovieObject;
-  onSelect(arg: boolean): void;
-  updatedStatus: boolean;
-  onClickHigherResolution(arg: boolean): void;
-  children: ReactNode;
+  onSelect?(arg: boolean): void;
+  updatedStatus?: boolean;
+  children?: ReactNode;
 };
 
 const MovieCardContainer = ({
@@ -151,22 +148,18 @@ const IconDetails = ({ children }: Pick<MovieProps, "children">) => {
   return <div className="flex items-center gap-8">{children}</div>;
 };
 
-const Movie = ({ movieDetail }: Pick<MovieProps, "movieDetail">) => {
-  const router = useRouter();
+const Movie = ({ movieDetail }: MovieProps) => {
   const stars = countingRating(movieDetail.rating);
   const renderStar = (item: string, i: number) => {
     return <div key={i} dangerouslySetInnerHTML={{ __html: item }} />;
-  };
-  const routeToHigherResolutionPage = () => {
-    router.push(`/movies/${movieDetail.id}`);
   };
 
   return (
     <MovieCardContainer movieDetail={movieDetail}>
       <MovieDetailsContainer>
-        <RatingContainer>
-          {stars.map((star: string, i: number) => renderStar(star, i))}
-        </RatingContainer>
+        {/* <RatingContainer>
+            {stars.map((star: string, i: number) => renderStar(star, i))}
+          </RatingContainer> */}
         <HeaderContainer>
           <Title textAlign="center" textTransform="uppercase">
             {movieDetail.name}
@@ -183,10 +176,6 @@ const Movie = ({ movieDetail }: Pick<MovieProps, "movieDetail">) => {
         </ContentContainer>
         <MovieDescription desc={movieDetail.desc} />
         <RelatedMovie relatedMovies={movieDetail.relatedMovies} />
-        <Button
-          label="Higher Resolution"
-          onClick={routeToHigherResolutionPage}
-        />
       </MovieDetailsContainer>
       <MovieImageContainer>
         <Image
