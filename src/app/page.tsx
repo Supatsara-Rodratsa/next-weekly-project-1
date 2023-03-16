@@ -1,4 +1,3 @@
-import Movie from "@src/components/Movie";
 import MovieCard from "@src/components/MovieCard";
 import MovieData from "@src/data/movies.json";
 import { MovieObject } from "@src/types/types";

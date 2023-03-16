@@ -10,6 +10,7 @@ export async function generateMetadata({ params }: MetaDataProps) {
   // TODO fetch movie and set title
   return {
     title: params.movieId,
+    description: "This is movie detail page",
   };
 }
 

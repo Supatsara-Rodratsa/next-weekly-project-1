@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useMovie } from "@src/contexts/movieContext";
 import { css } from "@emotion/css";
 import clsx from "clsx";
-import { COLORS } from "@src/constants/constants";
 
 type MovieCardProps = {
   movieDetail: MovieObject;
