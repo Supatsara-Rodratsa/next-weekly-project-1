@@ -1,17 +1,19 @@
-import MovieCard from "@src/components/MovieCard";
-import MovieData from "@src/data/movies.json";
-import { MovieObject } from "@src/types/types";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Movie App",
-  description: "This is Movie Home Page",
-};
+"use client";
+import Title from "@src/components/Title";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="flex w-full min-h-[calc(100vh_-_64px)] justify-center items-center m-auto p-7">
-      <MovieCard movieDetail={MovieData as MovieObject} />
-    </div>
+    <motion.div
+      initial={{ opacity: 0, scale: 4 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 2 }}
+      className="flex flex-col w-full min-h-[calc(100vh_-_64px)] justify-center items-center m-auto p-7 gap-4"
+    >
+      <Title textAlign="center" fontWeight="medium">
+        Welcome To Next Homework
+      </Title>
+      <p className="text-5xl">👩🏼‍💻 💻</p>
+    </motion.div>
   );
 }

@@ -10,6 +10,7 @@ import Icon from "../Icon";
 import { COLORS, ICON } from "@src/constants/constants";
 import Image from "next/image";
 import { css } from "@emotion/css";
+import { motion } from "framer-motion";
 
 type MovieProps = {
   movieDetail: MovieObject;
@@ -30,7 +31,10 @@ const MovieCardContainer = ({
     }
   `;
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
       className={clsx(
         "flex flex-row relative justify-center items-center gap-6 overflow-hidden h-full w-full",
         `before:bg-no-repeat before:bg-cover before:w-full before:h-[600px] w-full before:absolute before:blur-[8rem]`,
@@ -39,7 +43,7 @@ const MovieCardContainer = ({
       )}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 

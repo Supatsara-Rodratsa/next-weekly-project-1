@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import "@src/styles/globals.css";
-import { MovieProvider } from "@src/contexts/movieContext";
 import Nav from "@src/components/Nav";
 import Script from "next/script";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: "Movie App",
-  description: "Generated Movie App",
+export const metadata: Metadata = {
+  title: "Next Assignment",
+  description: "This is Next Homework",
 };
 
 export type LayoutProps = {
@@ -25,10 +25,8 @@ export default function RootLayout({ children }: LayoutProps) {
       </head>
 
       <body className="bg-black">
-        <MovieProvider>
-          <Nav />
-          <div className="mt-16">{children}</div>
-        </MovieProvider>
+        <Nav />
+        <div className="mt-16">{children}</div>
       </body>
     </html>
   );

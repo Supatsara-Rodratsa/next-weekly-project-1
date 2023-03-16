@@ -1,5 +1,11 @@
 import "@src/styles/globals.css";
 import { LayoutProps } from "../layout";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Movie",
+  description: "This is Movie Page",
+};
 
 export default function RootLayout({ children }: LayoutProps) {
   return (

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useMovie } from "@src/contexts/movieContext";
 import { css } from "@emotion/css";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
 type MovieCardProps = {
   movieDetail: MovieObject;
@@ -38,7 +39,12 @@ const MovieCard = ({ movieDetail }: MovieCardProps) => {
   `;
 
   return (
-    <div className={clsx("w-full h-full justify-center flex items-center")}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className={clsx("w-full h-full justify-center flex items-center")}
+    >
       <div className="flex flex-col justify-center items-center gap-4">
         <div className="w-full flex justify-center">
           <Title>{movieDetail.name}</Title>
@@ -62,7 +68,7 @@ const MovieCard = ({ movieDetail }: MovieCardProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
