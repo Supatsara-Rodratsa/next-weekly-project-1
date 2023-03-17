@@ -10,7 +10,7 @@ export default function Home() {
       transition={{ duration: 2 }}
       className="flex flex-col w-full min-h-[calc(100vh_-_64px)] justify-center items-center m-auto p-7 gap-4"
     >
-      <Title textAlign="center" fontWeight="medium">
+      <Title textAlign="none" fontWeight="medium" customStyle="text-center">
         Welcome To Next Homework
       </Title>
       <Title

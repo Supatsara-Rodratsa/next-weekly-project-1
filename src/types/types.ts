@@ -45,7 +45,7 @@ export type PokemonNameProps = {
   url: string;
 };
 
-export type Align = "start" | "center" | "end";
+export type Align = "start" | "center" | "end" | "none";
 export type TextTransform = "uppercase" | "lowercase" | "capitalize";
 export type IconCategory = "calendar" | "rating";
 export type Direction = "row" | "column";
