@@ -14,6 +14,5 @@ export async function generateMetadata({ params }: MetaDataProps) {
 }
 
 export default function MovieDetail({ params }: MetaDataProps) {
-  console.log(params, ":: current params");
   return <Movie movieDetail={MovieData as MovieObject} />;
 }

@@ -22,8 +22,6 @@ const PokemonImageContainer = ({
 };
 
 const PokemonImage = ({ image }: Pick<PokemonCardProps, "image">) => {
-  console.log(image, "image");
-
   return (
     <Image
       className="object-contain"

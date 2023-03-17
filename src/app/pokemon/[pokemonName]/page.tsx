@@ -26,7 +26,5 @@ const fetchPokemonDetails = async (pokemonName: string) => {
 
 export default async function PokemonDetail({ params }: MetaDataProps) {
   const pokemonDetail = await fetchPokemonDetails(params.pokemonName);
-  console.log(pokemonDetail, "pokemonDetail");
-
   return <PokemonCard pokemonDetails={{ pokemonDetail }} />;
 }
