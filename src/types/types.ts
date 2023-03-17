@@ -33,6 +33,18 @@ export type AxiosProps<T = string> = {
   data?: T;
 };
 
+export type PokemonProps = {
+  count: number;
+  next: string;
+  previous: null;
+  results: PokemonNameProps[];
+};
+
+export type PokemonNameProps = {
+  name: string;
+  url: string;
+};
+
 export type Align = "start" | "center" | "end";
 export type TextTransform = "uppercase" | "lowercase" | "capitalize";
 export type IconCategory = "calendar" | "rating";

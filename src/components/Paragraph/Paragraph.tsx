@@ -10,6 +10,7 @@ type ParagraphProps = {
   textTransform?: TextTransform;
   fontWeight?: FontWeight;
   children: ReactNode;
+  customStyle?: string;
 };
 
 const Paragraph = ({
@@ -20,6 +21,7 @@ const Paragraph = ({
   textTransform,
   fontWeight,
   children,
+  customStyle,
 }: ParagraphProps) => {
   return (
     <p
@@ -29,7 +31,8 @@ const Paragraph = ({
         textAlign ? `text-${textAlign}` : "text-start",
         width ? `w-[${width}]` : "w-fit",
         textTransform,
-        fontWeight ? `font-${fontWeight}` : "font-normal"
+        fontWeight ? `font-${fontWeight}` : "font-normal",
+        customStyle
       )}
     >
       {children}
