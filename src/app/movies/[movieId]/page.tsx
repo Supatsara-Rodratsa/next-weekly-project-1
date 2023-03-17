@@ -7,7 +7,6 @@ type MetaDataProps = {
 };
 
 export async function generateMetadata({ params }: MetaDataProps) {
-  // TODO fetch movie and set title
   return {
     title: params.movieId,
     description: "This is movie detail page",
@@ -16,9 +15,5 @@ export async function generateMetadata({ params }: MetaDataProps) {
 
 export default function MovieDetail({ params }: MetaDataProps) {
   console.log(params, ":: current params");
-  return (
-    <div>
-      <Movie movieDetail={MovieData as MovieObject} />
-    </div>
-  );
+  return <Movie movieDetail={MovieData as MovieObject} />;
 }

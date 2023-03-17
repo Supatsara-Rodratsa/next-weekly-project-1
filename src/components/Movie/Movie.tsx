@@ -23,7 +23,6 @@ const MovieCardContainer = ({
   movieDetail,
   children,
 }: Pick<MovieProps, "movieDetail" | "children">) => {
-  // console.log(movieDetail.image_url, "movieDetail.image_url");
   const style = css`
     :before {
       background-image: url(${movieDetail.image_url});

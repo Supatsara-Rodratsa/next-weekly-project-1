@@ -10,6 +10,7 @@ type TitleProps = {
   textTransform?: TextTransform;
   fontWeight?: FontWeight;
   children: ReactNode;
+  customStyle?: string;
 };
 
 const Title = ({
@@ -20,6 +21,7 @@ const Title = ({
   textTransform,
   fontWeight,
   children,
+  customStyle,
 }: TitleProps) => {
   return (
     <h1
@@ -32,7 +34,8 @@ const Title = ({
         width ? `w-[${width}]` : "w-fit",
         textTransform,
         fontWeight ? `font-${fontWeight}` : "font-bold",
-        "font-sans"
+        "font-sans",
+        customStyle
       )}
     >
       {children}

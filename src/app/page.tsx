@@ -13,6 +13,14 @@ export default function Home() {
       <Title textAlign="center" fontWeight="medium">
         Welcome To Next Homework
       </Title>
+      <Title
+        textAlign="center"
+        fontWeight="medium"
+        fontSize={1}
+        customStyle="text-3xl"
+      >
+        Created By Rose
+      </Title>
       <p className="text-5xl">👩🏼‍💻 💻</p>
     </motion.div>
   );
