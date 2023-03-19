@@ -1,4 +1,5 @@
 import { MovieDTO } from "@src/types/types";
+
 import MovieCard from "../MovieCard";
 
 type MovieGirdProp = {

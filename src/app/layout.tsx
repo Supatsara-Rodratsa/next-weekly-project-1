@@ -1,8 +1,9 @@
-import { ReactNode } from "react";
 import "@src/styles/globals.css";
 import { Metadata } from "next";
-import { MovieProvider } from "@src/contexts/movieContext";
+import { ReactNode } from "react";
+
 import Nav from "@src/components/Nav";
+import { MovieProvider } from "@src/contexts/movieContext";
 
 export const metadata: Metadata = {
   title: "Movie Search",

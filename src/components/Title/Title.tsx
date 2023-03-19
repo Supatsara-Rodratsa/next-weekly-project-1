@@ -1,6 +1,7 @@
-import { Align, FontWeight, TextTransform } from "@src/types/types";
 import clsx from "clsx";
 import { ReactNode } from "react";
+
+import { Align, FontWeight, TextTransform } from "@src/types/types";
 
 type TitleProps = {
   fontSize?: number;

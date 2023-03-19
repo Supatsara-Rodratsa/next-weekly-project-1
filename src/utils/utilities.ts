@@ -2,7 +2,7 @@ import { ICON } from "@src/constants/constants";
 import { MovieDTO } from "@src/types/types";
 
 export function countingRating(score: number): string[] {
-  let starItem = [];
+  const starItem = [];
   let totalScore = (score * 5) / 10;
   let fullScore = 5;
 

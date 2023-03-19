@@ -1,5 +1,6 @@
-import { LayoutProps } from "../layout";
 import { Metadata } from "next";
+
+import { LayoutProps } from "../layout";
 
 export const metadata: Metadata = {
   title: "History",

@@ -1,7 +1,9 @@
+import { Metadata } from "next";
+
 import MovieWrapper from "@src/components/MovieWrapper";
 import { MovieDTO } from "@src/types/types";
+
 import { fetchAllMovies } from "../../helpers/apiHelper";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Movies",

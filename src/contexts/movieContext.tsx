@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 "use client";
-import { MovieDTO } from "@src/types/types";
+
 import {
   ReactNode,
   createContext,
@@ -7,6 +8,8 @@ import {
   useEffect,
   useState,
 } from "react";
+
+import { MovieDTO } from "@src/types/types";
 
 type MovieContextType = {
   currentMovieSearch: string;

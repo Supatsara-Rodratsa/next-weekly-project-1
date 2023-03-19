@@ -1,9 +1,10 @@
+import { motion } from "framer-motion";
+import { useState } from "react";
+
+import Button from "../Button";
+import GenreCheckBox from "../GenreCheckBox";
 import Paragraph from "../Paragraph";
 import Select from "../Select";
-import GenreCheckBox from "../GenreCheckBox";
-import { useState } from "react";
-import Button from "../Button";
-import { motion } from "framer-motion";
 
 const Filter = () => {
   const [selectedValue, setSelectedValue] = useState("");

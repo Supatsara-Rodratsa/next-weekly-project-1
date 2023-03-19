@@ -1,4 +1,5 @@
 import { useMovie } from "@src/contexts/movieContext";
+
 import MovieCheckBox from "../CheckBox";
 import ModalDialog from "../Modal";
 import Title from "../Title";
