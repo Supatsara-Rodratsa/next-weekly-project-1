@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import clsx from "clsx";
 import { forwardRef, useState } from "react";
+import * as React from "react";
 
 type SelectProps = {
   id: string;
@@ -15,7 +17,7 @@ type SelectProps = {
 
 const SelectOption = (
   { options, defaultValue = "", id, onSelectedValue, placeholder }: SelectProps,
-  ref: React.RefObject<HTMLInputElement>
+  ref: any
 ) => {
   const [currentValue, setCurrentValue] = useState(defaultValue);
 
