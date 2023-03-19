@@ -1,8 +1,10 @@
-import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import { ReactNode, useState } from "react";
-import Icon from "../Icon";
+
 import { ICON } from "@src/constants/constants";
+
+import Icon from "../Icon";
 
 type ModalDialogProps = {
   isOpen: boolean;

@@ -1,7 +1,9 @@
 "use client";
-import { ICON } from "@src/constants/constants";
-import Icon from "../Icon";
 import { useState } from "react";
+
+import { ICON } from "@src/constants/constants";
+
+import Icon from "../Icon";
 
 type InputProps = {
   placeholder?: string;

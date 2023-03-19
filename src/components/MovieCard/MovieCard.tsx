@@ -1,16 +1,18 @@
 "use client";
-import { IconCategory, MovieDTO } from "@src/types/types";
-import Image from "next/image";
-import Title from "../Title";
-import { useRouter } from "next/navigation";
 import { css } from "@emotion/css";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import Icon from "../Icon";
-import { countingRating, getCurrentMovieId } from "@src/utils/utilities";
-import Paragraph from "../Paragraph";
-import { useMovie } from "@src/contexts/movieContext";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
+import { useMovie } from "@src/contexts/movieContext";
+import { IconCategory, MovieDTO } from "@src/types/types";
+import { countingRating, getCurrentMovieId } from "@src/utils/utilities";
+
+import Icon from "../Icon";
+import Paragraph from "../Paragraph";
+import Title from "../Title";
 
 type MovieCardProps = {
   movieDetail: MovieDTO;
@@ -57,8 +59,7 @@ const MovieDetail = ({ movieDetail }: MovieCardProps) => {
 
 const MovieCard = ({ movieDetail }: MovieCardProps) => {
   const router = useRouter();
-  const { favoriteMovies, setFavoriteMovies, historyMovie, setHistoryMovie } =
-    useMovie();
+  const { favoriteMovies, setFavoriteMovies } = useMovie();
   const currentMovieId = getCurrentMovieId(movieDetail);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -74,7 +75,7 @@ const MovieCard = ({ movieDetail }: MovieCardProps) => {
       favoriteMovies.push(currentMovieId);
       setFavoriteMovies([...favoriteMovies]);
     } else {
-      let index = favoriteMovies.indexOf(currentMovieId);
+      const index = favoriteMovies.indexOf(currentMovieId);
       if (index !== -1) {
         favoriteMovies.splice(index, 1);
         setFavoriteMovies([...favoriteMovies]);

@@ -1,9 +1,10 @@
 "use client";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import SearchMovie from "../SearchMovie";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+
 import Icon from "../Icon";
+import SearchMovie from "../SearchMovie";
 
 const Nav = () => {
   const pathname = usePathname();

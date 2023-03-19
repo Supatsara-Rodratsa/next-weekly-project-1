@@ -105,7 +105,8 @@
     },
     "import/resolver": {
       "node": {
-        "paths": ["./"]
+        "paths": ["./", "*.svg"],
+        "moduleDirectory": ["node_modules", "./public"]
       }
     }
   }

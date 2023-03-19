@@ -1,6 +1,7 @@
 "use client";
-import Paragraph from "../Paragraph";
 import { motion } from "framer-motion";
+
+import Paragraph from "../Paragraph";
 
 const EmptyState = () => {
   return (

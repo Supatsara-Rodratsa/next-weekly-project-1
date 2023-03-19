@@ -1,5 +1,5 @@
-import { fetchMovieById } from "@src/helpers/apiHelper";
 import MovieDetailWrapper from "@src/components/MovieDetailWrapper";
+import { fetchMovieById } from "@src/helpers/apiHelper";
 
 type MetaDataProps = {
   params: { movieId: string };

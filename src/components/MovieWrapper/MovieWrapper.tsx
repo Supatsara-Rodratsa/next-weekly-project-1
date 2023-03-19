@@ -1,10 +1,12 @@
 "use client";
-import { useMovie } from "@src/contexts/movieContext";
-import MovieGrid from "../MovieGrid";
-import { MovieDTO } from "@src/types/types";
 import { useEffect, useState } from "react";
+
+import { useMovie } from "@src/contexts/movieContext";
+import { MovieDTO } from "@src/types/types";
+
 import EmptyState from "../EmptyState";
 import Filter from "../Filter";
+import MovieGrid from "../MovieGrid";
 
 type MovieGirdProp = {
   movieList: MovieDTO[];
@@ -32,7 +34,7 @@ const MovieWrapper = ({ movieList }: MovieGirdProp) => {
     }
     setCurrentMovies(filterMovie);
 
-    let temp = new Set<string>();
+    const temp = new Set<string>();
     movieList.forEach((movie: MovieDTO) =>
       movie.genre.forEach((genre: string) => {
         temp.add(genre);

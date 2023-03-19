@@ -1,4 +1,7 @@
+/* eslint-disable import/no-unresolved */
+import { ICON } from "@src/constants/constants";
 import { IconCategory } from "@src/types/types";
+
 import Calendar from "/public/static/icons/calendar.svg";
 import Rating from "/public/static/icons/rating.svg";
 import Search from "/public/static/icons/search.svg";
@@ -9,7 +12,6 @@ import EmptyHeart from "/public/static/icons/empty-heart.svg";
 import FillHeart from "/public/static/icons/fill-heart.svg";
 import Back from "/public/static/icons/back.svg";
 import Close from "/public/static/icons/close.svg";
-import { ICON } from "@src/constants/constants";
 
 type IconProps = {
   color?: string;

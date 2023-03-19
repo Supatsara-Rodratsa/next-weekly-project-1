@@ -1,6 +1,7 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { COLORS } from "@src/constants/constants";
 import * as React from "react";
+
+import { COLORS } from "@src/constants/constants";
 
 type MovieCheckBoxProps = {
   currentValue: boolean;

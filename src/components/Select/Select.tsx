@@ -1,9 +1,9 @@
 "use client";
-import { forwardRef, useState } from "react";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import clsx from "clsx";
+import { forwardRef, useState } from "react";
 
 type SelectProps = {
   id: string;
@@ -15,7 +15,7 @@ type SelectProps = {
 
 const SelectOption = (
   { options, defaultValue = "", id, onSelectedValue, placeholder }: SelectProps,
-  ref: any
+  ref: React.RefObject<HTMLInputElement>
 ) => {
   const [currentValue, setCurrentValue] = useState(defaultValue);
 

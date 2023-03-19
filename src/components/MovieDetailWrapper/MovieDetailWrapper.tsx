@@ -1,4 +1,5 @@
 import { MovieDTO } from "@src/types/types";
+
 import Movie from "../Movie/Movie";
 
 type MovieDetailWrapperProps = {

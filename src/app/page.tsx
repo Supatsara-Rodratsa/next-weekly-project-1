@@ -1,8 +1,10 @@
 "use client";
-import Button from "@src/components/Button";
-import Title from "@src/components/Title";
+
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+
+import Button from "@src/components/Button";
+import Title from "@src/components/Title";
 
 export default function Home() {
   const router = useRouter();

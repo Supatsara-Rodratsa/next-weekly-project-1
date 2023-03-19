@@ -1,7 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
-import Input from "../Input";
+
 import { useMovie } from "@src/contexts/movieContext";
+
+import Input from "../Input";
 
 const SearchMovie = () => {
   const { setCurrentMovieSearch } = useMovie();

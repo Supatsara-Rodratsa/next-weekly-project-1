@@ -1,18 +1,21 @@
 "use client";
-import { IconCategory, MovieDTO } from "@src/types/types";
-import clsx from "clsx";
-import { ReactNode, useState } from "react";
-import Title from "../Title";
-import Paragraph from "../Paragraph";
-import Badge from "../Badge";
-import { countingRating, getCurrentMovieId } from "@src/utils/utilities";
-import Icon from "../Icon";
-import { COLORS, ICON } from "@src/constants/constants";
-import Image from "next/image";
+
 import { css } from "@emotion/css";
+import clsx from "clsx";
 import { motion } from "framer-motion";
-import Button from "../Button";
+import Image from "next/image";
+import { ReactNode, useState } from "react";
+
+import { COLORS, ICON } from "@src/constants/constants";
 import { useMovie } from "@src/contexts/movieContext";
+import { IconCategory, MovieDTO } from "@src/types/types";
+import { countingRating, getCurrentMovieId } from "@src/utils/utilities";
+
+import Badge from "../Badge";
+import Button from "../Button";
+import Icon from "../Icon";
+import Paragraph from "../Paragraph";
+import Title from "../Title";
 
 type MovieProps = {
   movieDetail: MovieDTO;
@@ -173,7 +176,7 @@ const Movie = ({ movieDetail }: MovieProps) => {
       favoriteMovies.push(currentMovieId);
       setFavoriteMovies(favoriteMovies);
     } else {
-      let index = favoriteMovies.indexOf(currentMovieId);
+      const index = favoriteMovies.indexOf(currentMovieId);
       if (index !== -1) {
         favoriteMovies.splice(index, 1);
         setFavoriteMovies(favoriteMovies);
