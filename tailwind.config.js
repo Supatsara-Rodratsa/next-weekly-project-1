@@ -10,10 +10,11 @@ module.exports = {
         black: "#000000",
         white: "#FFFFFF",
         red: "#ff2c1f",
+        "opacity-white": "rgba(255, 255, 255, 0.2)",
       },
       fontFamily: {
         maven: ["Maven Pro", "sans-serif"],
-        sans: ["Gothic A1", "sans-serif"],
+        sans: ["Lato", "sans-serif"],
       },
       screens: {
         mobile: { max: "425px" },
@@ -29,6 +30,9 @@ module.exports = {
         "3xl": "1.953rem", //30
         "4xl": "2.441rem", //36
         "5xl": "3.052rem", //48
+      },
+      gridTemplateColumns: {
+        fill: "repeat( auto-fit, minmax(250px, 1fr) )",
       },
     },
   },

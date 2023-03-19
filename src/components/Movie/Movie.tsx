@@ -1,19 +1,21 @@
 "use client";
-import { MovieObject } from "@src/types/types";
+import { IconCategory, MovieDTO } from "@src/types/types";
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import Title from "../Title";
 import Paragraph from "../Paragraph";
 import Badge from "../Badge";
-import { countingRating } from "@src/utils/utilities";
+import { countingRating, getCurrentMovieId } from "@src/utils/utilities";
 import Icon from "../Icon";
 import { COLORS, ICON } from "@src/constants/constants";
 import Image from "next/image";
 import { css } from "@emotion/css";
 import { motion } from "framer-motion";
+import Button from "../Button";
+import { useMovie } from "@src/contexts/movieContext";
 
 type MovieProps = {
-  movieDetail: MovieObject;
+  movieDetail: MovieDTO;
   onSelect?(arg: boolean): void;
   updatedStatus?: boolean;
   children?: ReactNode;
@@ -35,7 +37,7 @@ const MovieCardContainer = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
       className={clsx(
-        "flex flex-row relative justify-center items-center gap-6 overflow-hidden h-full w-full",
+        "flex flex-row relative justify-center items-center gap-6 overflow-hidden h-full w-full mx-20",
         `before:bg-no-repeat before:bg-cover before:w-full before:h-[600px] w-full before:absolute before:blur-[8rem]`,
         style,
         "tablet:flex-wrap-reverse mobile:flex-wrap-reverse"
@@ -54,10 +56,6 @@ const MovieDetailsContainer = ({ children }: Pick<MovieProps, "children">) => {
   );
 };
 
-const RatingContainer = ({ children }: Pick<MovieProps, "children">) => {
-  return <div className="w-full flex justify-center gap-4">{children}</div>;
-};
-
 const HeaderContainer = ({ children }: Pick<MovieProps, "children">) => {
   return (
     <div className="flex flex-col justify-center gap-6 items-center">
@@ -70,7 +68,7 @@ const ContentContainer = ({ children }: Pick<MovieProps, "children">) => {
   return <div className="flex flex-col gap-4 w-full">{children}</div>;
 };
 
-const MovieDescription = ({ desc }: Pick<MovieObject, "desc">) => {
+const MovieDescription = ({ desc }: Pick<MovieDTO, "desc">) => {
   return (
     <div className="flex flex-col gap-2">
       <Title fontSize={14}>Description:</Title>
@@ -79,20 +77,7 @@ const MovieDescription = ({ desc }: Pick<MovieObject, "desc">) => {
   );
 };
 
-const RelatedMovie = ({
-  relatedMovies,
-}: Pick<MovieObject, "relatedMovies">) => {
-  return (
-    <div className="flex items-start w-full gap-2">
-      <Title fontSize={14}>Related Movie:</Title>
-      <Paragraph fontSize={14}>
-        {relatedMovies.map(({ name }) => name).join(", ")}
-      </Paragraph>
-    </div>
-  );
-};
-
-const Director = ({ directors }: Pick<MovieObject, "directors">) => {
+const Director = ({ directors }: Pick<MovieDTO, "directors">) => {
   return (
     <div className="flex items-center w-full gap-2">
       <Title fontSize={14}>Director:</Title>
@@ -101,7 +86,7 @@ const Director = ({ directors }: Pick<MovieObject, "directors">) => {
   );
 };
 
-const Actor = ({ actors }: Pick<MovieObject, "actors">) => {
+const Actor = ({ actors }: Pick<MovieDTO, "actors">) => {
   return (
     <div className="flex items-start w-full gap-2">
       <Title fontSize={14}>Actors:</Title>
@@ -110,11 +95,11 @@ const Actor = ({ actors }: Pick<MovieObject, "actors">) => {
   );
 };
 
-const Genre = ({ genre }: Pick<MovieObject, "genre">) => {
+const Genre = ({ genre }: Pick<MovieDTO, "genre">) => {
   return (
     <div className="flex gap-2 items-start mobile:flex-wrap">
       <Title fontSize={14}>Genre: </Title>
-      {genre.map((item, i) => (
+      {genre.map((item: string, i: number) => (
         <Badge key={i} label={item} />
       ))}
     </div>
@@ -123,13 +108,13 @@ const Genre = ({ genre }: Pick<MovieObject, "genre">) => {
 
 const MovieImageContainer = ({ children }: Pick<MovieProps, "children">) => {
   return (
-    <div className="relative h-[600px] min-w-[300px] w-full object-cover object-top tablet:min-w-[200px] tablet:h-[500px] mobile:tablet:min-w-[100px] mobile:h-[400px]">
+    <div className="relative h-[calc(100vh_-_120px)] min-w-[300px] w-full object-cover object-top tablet:min-w-[200px] tablet:h-[500px] mobile:tablet:min-w-[100px] mobile:h-[400px]">
       {children}
     </div>
   );
 };
 
-const Year = ({ year }: Pick<MovieObject, "year">) => {
+const Year = ({ year }: Pick<MovieDTO, "year">) => {
   return (
     <div className="flex items-center gap-2">
       <Icon size="18px" type={ICON.CALENDAR} color={COLORS.RED} />
@@ -138,11 +123,11 @@ const Year = ({ year }: Pick<MovieObject, "year">) => {
   );
 };
 
-const Rating = ({ rating }: Pick<MovieObject, "rating">) => {
+const Rating = ({ rating }: Pick<MovieDTO, "rating">) => {
   return (
     <div className="flex items-center gap-2">
       <Icon size="20px" type={ICON.RATING} color={COLORS.RED} />
-      <Paragraph textAlign="center">{rating}</Paragraph>
+      <Paragraph textAlign="center">{rating} / 10</Paragraph>
     </div>
   );
 };
@@ -151,34 +136,88 @@ const IconDetails = ({ children }: Pick<MovieProps, "children">) => {
   return <div className="flex items-center gap-8">{children}</div>;
 };
 
+const renderStar = (starType: IconCategory, i: number) => {
+  return <Icon key={i} type={starType} color="red" size="24px" />;
+};
+
+const MovieStar = ({ rating }: Pick<MovieDTO, "rating">) => {
+  const stars: string[] = countingRating(rating);
+  return (
+    <div className="flex gap-1 -mt-2">
+      {stars.map((star: string, i: number) =>
+        renderStar(star as IconCategory, i)
+      )}
+    </div>
+  );
+};
+
 const Movie = ({ movieDetail }: MovieProps) => {
-  const stars = countingRating(movieDetail.rating);
-  const renderStar = (item: string, i: number) => {
-    return <div key={i} dangerouslySetInnerHTML={{ __html: item }} />;
+  const { favoriteMovies, setFavoriteMovies, historyMovie, setHistoryMovie } =
+    useMovie();
+  const currentMovieId = getCurrentMovieId(movieDetail);
+  const findIndex = favoriteMovies.findIndex((movieId: string) =>
+    movieId.includes(currentMovieId)
+  );
+  const [isFavorite, setIsFavorite] = useState(findIndex !== -1);
+  const findHistoryIndex = historyMovie.findIndex((movieId: string) =>
+    movieId.includes(currentMovieId)
+  );
+
+  if (findHistoryIndex == -1) {
+    historyMovie.push(currentMovieId);
+    setHistoryMovie([...historyMovie]);
+  }
+
+  const handleFavoriteMovie = () => {
+    if (!isFavorite) {
+      favoriteMovies.push(currentMovieId);
+      setFavoriteMovies(favoriteMovies);
+    } else {
+      let index = favoriteMovies.indexOf(currentMovieId);
+      if (index !== -1) {
+        favoriteMovies.splice(index, 1);
+        setFavoriteMovies(favoriteMovies);
+      }
+    }
+    setIsFavorite(!isFavorite);
   };
 
   return (
     <MovieCardContainer movieDetail={movieDetail}>
+      {isFavorite && (
+        <div className="absolute top-5 left-5">
+          <Icon type="fill-heart" color="red" size="30" />
+        </div>
+      )}
       <MovieDetailsContainer>
-        {/* <RatingContainer>
-            {stars.map((star: string, i: number) => renderStar(star, i))}
-          </RatingContainer> */}
         <HeaderContainer>
-          <Title textAlign="center" textTransform="uppercase">
+          <Title
+            fontSize={60}
+            customStyle="text-3xl font-normal"
+            textAlign="center"
+            textTransform="uppercase"
+          >
             {movieDetail.name}
           </Title>
+          <MovieStar rating={movieDetail.rating} />
           <IconDetails>
             <Year year={movieDetail.year} />
             <Rating rating={movieDetail.rating} />
           </IconDetails>
         </HeaderContainer>
+        <Button
+          customStyle="rounded-[30px]"
+          label={
+            isFavorite ? "Remove from Favorite Movie" : "Add to Favorite Movie"
+          }
+          onClick={handleFavoriteMovie}
+        />
         <ContentContainer>
           <Director directors={movieDetail.directors} />
           <Actor actors={movieDetail.actors} />
           <Genre genre={movieDetail.genre} />
         </ContentContainer>
         <MovieDescription desc={movieDetail.desc} />
-        <RelatedMovie relatedMovies={movieDetail.relatedMovies} />
       </MovieDetailsContainer>
       <MovieImageContainer>
         <Image

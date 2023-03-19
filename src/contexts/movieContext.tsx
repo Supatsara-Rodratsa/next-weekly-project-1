@@ -1,5 +1,5 @@
 "use client";
-import { MovieObject } from "@src/types/types";
+import { MovieDTO } from "@src/types/types";
 import {
   ReactNode,
   createContext,
@@ -9,10 +9,20 @@ import {
 } from "react";
 
 type MovieContextType = {
-  movieData: MovieObject | undefined;
-  setShowHigherResolutionImage(arg: boolean): void;
-  showHigherResolutionImage: boolean;
-  setMovieData(arg: MovieObject | undefined): void;
+  currentMovieSearch: string;
+  setCurrentMovieSearch(currentValue: string): void;
+  allMovies: MovieDTO[];
+  setAllMovies(movies: MovieDTO[]): void;
+  favoriteMovies: string[];
+  setFavoriteMovies(list: string[]): void;
+  historyMovie: string[];
+  setHistoryMovie(list: string[]): void;
+  allFavMovies: MovieDTO[];
+  allSeenMovie: MovieDTO[];
+  allGenres: Set<string>;
+  setAllGenres(list: Set<string>): void;
+  selectedGenres: string[];
+  setSelectedGenres(list: string[]): void;
 };
 
 type MovieContextProps = {
@@ -20,10 +30,20 @@ type MovieContextProps = {
 };
 
 const movieContextDefaultValues: MovieContextType = {
-  movieData: undefined,
-  setShowHigherResolutionImage: () => false,
-  showHigherResolutionImage: false,
-  setMovieData: () => null,
+  currentMovieSearch: "",
+  setCurrentMovieSearch: () => {},
+  allMovies: [],
+  setAllMovies: () => {},
+  favoriteMovies: [],
+  setFavoriteMovies: () => {},
+  historyMovie: [],
+  setHistoryMovie: () => {},
+  allFavMovies: [],
+  allSeenMovie: [],
+  allGenres: new Set(),
+  setAllGenres: () => {},
+  selectedGenres: [],
+  setSelectedGenres: () => {},
 };
 
 const MovieContext = createContext<MovieContextType>(movieContextDefaultValues);
@@ -33,20 +53,49 @@ export function useMovie() {
 }
 
 export function MovieProvider({ children }: MovieContextProps) {
-  const [movieData, setMovieData] = useState<MovieObject>();
-  const [showHigherResolutionImage, setShowHigherResolutionImage] =
-    useState<boolean>(false);
+  const [allMovies, setAllMovies] = useState<MovieDTO[]>([]);
+  const [favoriteMovies, setFavoriteMovies] = useState<string[]>([]);
+  const [allFavMovies, setAllFavMovies] = useState<MovieDTO[]>([]);
+  const [historyMovie, setHistoryMovie] = useState<string[]>([]);
+  const [allSeenMovie, setAllSeenMovies] = useState<MovieDTO[]>([]);
+  const [currentMovieSearch, setCurrentMovieSearch] = useState<string>("");
+  const [allGenres, setAllGenres] = useState<Set<string>>(new Set());
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
-  return (
-    <MovieContext.Provider
-      value={{
-        movieData,
-        setMovieData,
-        showHigherResolutionImage,
-        setShowHigherResolutionImage,
-      }}
-    >
-      {children}
-    </MovieContext.Provider>
-  );
+  useEffect(() => {
+    console.log(selectedGenres);
+
+    const currentFavMovie: MovieDTO[] = allMovies.filter((movie: MovieDTO) =>
+      favoriteMovies.some((favMovieId: string) =>
+        movie.imdb_url.includes(favMovieId)
+      )
+    );
+    setAllFavMovies(currentFavMovie);
+
+    const currentHistoryMovie: MovieDTO[] = allMovies.filter(
+      (movie: MovieDTO) =>
+        historyMovie.some((favMovieId: string) =>
+          movie.imdb_url.includes(favMovieId)
+        )
+    );
+    setAllSeenMovies(currentHistoryMovie);
+  }, [favoriteMovies, allMovies, historyMovie, allGenres, selectedGenres]);
+
+  const data = {
+    currentMovieSearch,
+    setCurrentMovieSearch,
+    allMovies,
+    setAllMovies,
+    favoriteMovies,
+    setFavoriteMovies,
+    historyMovie,
+    setHistoryMovie,
+    allFavMovies,
+    allSeenMovie,
+    allGenres,
+    setAllGenres,
+    selectedGenres,
+    setSelectedGenres,
+  };
+  return <MovieContext.Provider value={data}>{children}</MovieContext.Provider>;
 }

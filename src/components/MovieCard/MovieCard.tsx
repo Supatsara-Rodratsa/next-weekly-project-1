@@ -1,33 +1,100 @@
 "use client";
-import { MovieObject } from "@src/types/types";
+import { IconCategory, MovieDTO } from "@src/types/types";
 import Image from "next/image";
 import Title from "../Title";
-import Button from "../Button";
 import { useRouter } from "next/navigation";
-import { useMovie } from "@src/contexts/movieContext";
 import { css } from "@emotion/css";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import Icon from "../Icon";
+import { countingRating, getCurrentMovieId } from "@src/utils/utilities";
+import Paragraph from "../Paragraph";
+import { useMovie } from "@src/contexts/movieContext";
+import { useEffect, useState } from "react";
 
 type MovieCardProps = {
-  movieDetail: MovieObject;
+  movieDetail: MovieDTO;
+};
+
+const renderStar = (starType: IconCategory, i: number) => {
+  return <Icon key={i} type={starType} color="red" size="18px" />;
+};
+
+const MovieStar = ({ rating }: Pick<MovieDTO, "rating">) => {
+  const stars: string[] = countingRating(rating);
+  return (
+    <>
+      {stars.map((star: string, i: number) =>
+        renderStar(star as IconCategory, i)
+      )}
+    </>
+  );
+};
+
+const MovieDetail = ({ movieDetail }: MovieCardProps) => {
+  return (
+    <div className="flex w-full h-full flex-col justify-end">
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between items-end">
+          <Title
+            fontSize={20}
+            customStyle="text-[24px] font-light tablet:text-xl"
+          >
+            {movieDetail.name}
+          </Title>
+          <Paragraph>2022</Paragraph>
+        </div>
+        <div className="flex justify-between items-center">
+          <div className="flex">
+            <MovieStar rating={movieDetail.rating} />
+          </div>
+          <Paragraph>Score: {movieDetail.rating} / 10 </Paragraph>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 const MovieCard = ({ movieDetail }: MovieCardProps) => {
   const router = useRouter();
-  const { setMovieData } = useMovie();
+  const { favoriteMovies, setFavoriteMovies, historyMovie, setHistoryMovie } =
+    useMovie();
+  const currentMovieId = getCurrentMovieId(movieDetail);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const findIndex = favoriteMovies.findIndex((movieId: string) =>
+      movieId.includes(currentMovieId)
+    );
+    setIsFavorite(findIndex !== -1);
+  }, [favoriteMovies, currentMovieId]);
+
+  const handleFavoriteMovie = () => {
+    if (!isFavorite) {
+      favoriteMovies.push(currentMovieId);
+      setFavoriteMovies([...favoriteMovies]);
+    } else {
+      let index = favoriteMovies.indexOf(currentMovieId);
+      if (index !== -1) {
+        favoriteMovies.splice(index, 1);
+        setFavoriteMovies([...favoriteMovies]);
+      }
+    }
+    setIsFavorite(!isFavorite);
+  };
+
   const routeToMovieDetail = () => {
-    setMovieData(movieDetail);
-    router.push(`/movies/${movieDetail.id}`);
+    router.push(`/movie/${currentMovieId}`);
   };
 
   const style = css`
-    :hover:before {
+    :before {
       background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.1) 0%,
-        rgba(0, 0, 0, 0.434) 50%,
-        rgba(0, 0, 0, 0.9) 100%
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 1)
       );
       content: "";
       width: 100%;
@@ -43,30 +110,37 @@ const MovieCard = ({ movieDetail }: MovieCardProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className={clsx("w-full h-full justify-center flex items-center")}
+      className={clsx(
+        "h-full relative justify-center flex items-center cursor-pointer"
+      )}
     >
-      <div className="flex flex-col justify-center items-center gap-4">
-        <div className="w-full flex justify-center">
-          <Title>{movieDetail.name}</Title>
-        </div>
-        <div
-          // onClick={routeToMovieDetail}
-          className={clsx("relative h-[500px] w-[400px] bg-white", style)}
-        >
-          <Image
-            priority
-            className={clsx("object-cover object-top")}
-            src={movieDetail.image_url}
-            fill
-            alt="movie poster"
-            sizes="(max-width: 768px) 100vw,
+      <div
+        onClick={routeToMovieDetail}
+        className={clsx("relative h-[400px] w-[300px] bg-white", style)}
+      >
+        <Image
+          priority
+          className={clsx("object-cover object-top")}
+          src={movieDetail.image_url}
+          fill
+          alt="movie poster"
+          sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
-          />
-          <div className="absolute -translate-x-2/4 -translate-y-2/4 top-[50%] left-[50%] z-[10]">
-            <Button label="See Movie Detail" onClick={routeToMovieDetail} />
-          </div>
+        />
+        <div className="relative flex w-full h-full p-4 items-end z-10">
+          <MovieDetail movieDetail={movieDetail} />
         </div>
+      </div>
+      <div
+        className="absolute top-3 right-3 z-20"
+        onClick={handleFavoriteMovie}
+      >
+        <Icon
+          type="fill-heart"
+          color={isFavorite ? "red" : "white"}
+          size="30px"
+        />
       </div>
     </motion.div>
   );

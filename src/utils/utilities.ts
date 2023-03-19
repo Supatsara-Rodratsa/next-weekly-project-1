@@ -1,3 +1,6 @@
+import { ICON } from "@src/constants/constants";
+import { MovieDTO } from "@src/types/types";
+
 export function countingRating(score: number): string[] {
   let starItem = [];
   let totalScore = (score * 5) / 10;
@@ -5,23 +8,18 @@ export function countingRating(score: number): string[] {
 
   while (fullScore > 0) {
     if (Math.trunc(totalScore) > 0) {
-      starItem.push('<i class="fa fa-star fa-lg text-red">');
+      starItem.push(ICON.FULL_STAR);
     } else if (totalScore >= 0.5) {
-      starItem.push('<i class="fa fa-star-half-o fa-lg text-red">');
+      starItem.push(ICON.HALF_STAR);
     } else {
-      starItem.push('<i class="fa fa-star-o fa-lg text-red">');
+      starItem.push(ICON.EMPTY_STAR);
     }
     totalScore -= 1;
     fullScore--;
   }
-
   return starItem;
 }
 
-export function blobToBase64(blob: Blob) {
-  return new Promise((resolve, _) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.readAsDataURL(blob);
-  });
+export function getCurrentMovieId(movie: MovieDTO) {
+  return movie.imdb_url.substring(7, 16);
 }

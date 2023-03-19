@@ -1,7 +1,8 @@
-import Title from "../Title";
+"use client";
+import Paragraph from "../Paragraph";
 
 const Loading = () => {
-  return <Title fontSize={30}>Loading...</Title>;
+  return <Paragraph customStyle="text-[20px]">Loading...</Paragraph>;
 };
 
 export default Loading;

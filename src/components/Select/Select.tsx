@@ -43,11 +43,22 @@ const SelectOption = (
             ".MuiOutlinedInput-notchedOutline": {
               border: "none",
             },
-            ".MuiPaper-root": {
-              marginTop: "10px",
+            ".MuiPopover-paper": {
+              borderRadius: "30px",
+            },
+            ".MuiSvgIcon-root ": {
+              fill: "white !important",
+            },
+            ".MuiSelect-select": {
+              padding: "8px",
+            },
+            "&.MuiPaper-root": {
+              borderRadius: "30px",
             },
           }}
-          className={clsx("bg-white w-[400px] outline-none")}
+          className={clsx(
+            "bg-black text-white w-[200px] outline-none rounded-[30px] border-white border"
+          )}
           fullWidth
           ref={ref}
           id={id}
@@ -57,7 +68,7 @@ const SelectOption = (
           displayEmpty
           placeholder="Select an option"
         >
-          <MenuItem value="" disabled>
+          <MenuItem className="rounded-[30px]" value="" disabled>
             <em>{placeholder || "Please Select..."}</em>
           </MenuItem>
           {options && options.map((item, i) => renderOption(item, i))}

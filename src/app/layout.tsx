@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import "@src/styles/globals.css";
-import Nav from "@src/components/Nav";
-import Script from "next/script";
 import { Metadata } from "next";
+import { MovieProvider } from "@src/contexts/movieContext";
+import Nav from "@src/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Next Assignment",
-  description: "This is Next Homework",
+  title: "Movie Search",
+  description: "This is Movie Search",
 };
 
 export type LayoutProps = {
@@ -21,12 +21,12 @@ export default function RootLayout({ children }: LayoutProps) {
           rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
         />
-        <Script id="test-script">{'{console.log("Hi There!")} '}</Script>
       </head>
-
       <body className="bg-black">
-        <Nav />
-        <div className="mt-16">{children}</div>
+        <MovieProvider>
+          <Nav />
+          <div className="mt-16">{children}</div>
+        </MovieProvider>
       </body>
     </html>
   );

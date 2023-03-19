@@ -26,13 +26,13 @@ const Paragraph = ({
   return (
     <p
       className={clsx(
-        fontSize ? `text-[${fontSize}px]` : "text-base",
-        color ? `text-[${color}]` : "text-white",
-        textAlign ? `text-${textAlign}` : "text-start",
+        customStyle,
+        fontSize && `text-[${fontSize}px]`,
+        color && `text-[${color}]`,
+        textAlign && `text-${textAlign}`,
         width ? `w-[${width}]` : "w-fit",
         textTransform,
-        fontWeight ? `font-${fontWeight}` : "font-normal",
-        customStyle
+        fontWeight ? `font-${fontWeight}` : "font-normal"
       )}
     >
       {children}
