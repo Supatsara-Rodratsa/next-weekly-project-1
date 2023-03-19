@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 
 export default async function Movie() {
   const movieList: MovieDTO[] = await fetchAllMovies();
-  console.log(movieList);
   return (
     <div>
       <MovieWrapper movieList={movieList} />

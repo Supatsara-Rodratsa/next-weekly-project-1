@@ -6,11 +6,10 @@ type MovieGirdProp = {
 };
 
 const MovieGrid = ({ movieList }: MovieGirdProp) => {
-  console.log(movieList, "movieList");
-
   const renderMovieCard = (movie: MovieDTO, i: number) => {
     return <MovieCard key={i} movieDetail={movie} />;
   };
+
   return (
     <div className="flex flex-wrap w-full gap-x-6 gap-y-6 justify-center items-center">
       {movieList.map((movie: MovieDTO, i: number) => renderMovieCard(movie, i))}

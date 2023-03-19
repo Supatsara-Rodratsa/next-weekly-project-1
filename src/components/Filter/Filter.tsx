@@ -28,7 +28,12 @@ const Filter = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="flex flex-col gap-4"
+    >
       <div className="text-center flex gap-3 justify-center items-center">
         <Paragraph>Filter By:</Paragraph>
         <Select
@@ -52,7 +57,7 @@ const Filter = () => {
         )}
       </div>
       {openGenreDialog && <GenreCheckBox onCloseDialog={closeDialog} />}
-    </div>
+    </motion.div>
   );
 };
 

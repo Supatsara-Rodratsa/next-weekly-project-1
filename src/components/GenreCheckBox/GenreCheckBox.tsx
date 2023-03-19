@@ -9,7 +9,6 @@ type GenreCheckBoxProps = {
 const GenreCheckBox = ({ onCloseDialog }: GenreCheckBoxProps) => {
   const { selectedGenres, setSelectedGenres, allGenres } = useMovie();
   const getUpdatedValue = (name: string, value: boolean) => {
-    console.log(name, value);
     if (value) {
       selectedGenres.push(name);
     } else {
@@ -32,7 +31,7 @@ const GenreCheckBox = ({ onCloseDialog }: GenreCheckBoxProps) => {
   return (
     <ModalDialog isOpen onClose={closeDialog}>
       <div className="flex flex-col gap-3">
-        <Title color="black" customStyle="text-2xl">
+        <Title color="black" fontSize={25} customStyle="text-2xl">
           Genres
         </Title>
         <div className="grid grid-cols-3">

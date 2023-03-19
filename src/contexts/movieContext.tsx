@@ -63,8 +63,6 @@ export function MovieProvider({ children }: MovieContextProps) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
   useEffect(() => {
-    console.log(selectedGenres);
-
     const currentFavMovie: MovieDTO[] = allMovies.filter((movie: MovieDTO) =>
       favoriteMovies.some((favMovieId: string) =>
         movie.imdb_url.includes(favMovieId)

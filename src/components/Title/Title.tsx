@@ -26,7 +26,6 @@ const Title = ({
   return (
     <h1
       className={clsx(
-        customStyle,
         fontSize
           ? `text-[${fontSize}px]`
           : "text-5xl tablet:text-4xl mobile:text-2xl",
@@ -35,7 +34,8 @@ const Title = ({
         width ? `w-[${width}]` : "w-fit",
         textTransform,
         fontWeight ? `font-${fontWeight}` : "font-bold",
-        "font-sans"
+        "font-sans",
+        customStyle
       )}
     >
       {children}

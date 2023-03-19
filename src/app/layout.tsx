@@ -25,7 +25,11 @@ export default function RootLayout({ children }: LayoutProps) {
       <body className="bg-black">
         <MovieProvider>
           <Nav />
-          <div className="mt-16">{children}</div>
+          <div className="mt-16">
+            <div className="flex w-full min-h-[calc(100vh_-_64px)] justify-center items-center m-auto p-7 text-white">
+              {children}
+            </div>
+          </div>
         </MovieProvider>
       </body>
     </html>
