@@ -23,3 +23,48 @@ export function countingRating(score: number): string[] {
 export function getCurrentMovieId(movie: MovieDTO) {
   return movie.imdb_url.substring(7, 16);
 }
+
+export function sortedByKey(filterMovie: MovieDTO[], sortedBy: string) {
+  switch (sortedBy) {
+    case "Name":
+      return filterMovie.sort((a: MovieDTO, b: MovieDTO) =>
+        a.name.localeCompare(b.name)
+      );
+    case "Rating":
+      return filterMovie.sort(
+        (a: MovieDTO, b: MovieDTO) => b.rating - a.rating
+      );
+    case "Year":
+      return filterMovie.sort((a: MovieDTO, b: MovieDTO) => b.year - a.year);
+    default:
+      return filterMovie;
+  }
+}
+
+export function filterMovieBySearching(
+  currentMovies: MovieDTO[],
+  key: string
+): MovieDTO[] {
+  return currentMovies.filter((movie: MovieDTO) =>
+    movie.name.toLowerCase().includes(key.toLowerCase())
+  );
+}
+
+export function filterMovieByGenres(
+  currentMovies: MovieDTO[],
+  selectedGenres: string[]
+): MovieDTO[] {
+  return currentMovies.filter((movie: MovieDTO) => {
+    return selectedGenres.some((genre: string) => movie.genre.includes(genre));
+  });
+}
+
+export function setGenres(currentMovies: MovieDTO[]): Set<string> {
+  const temp = new Set<string>();
+  currentMovies.forEach((movie: MovieDTO) =>
+    movie.genre.forEach((genre: string) => {
+      temp.add(genre);
+    })
+  );
+  return temp;
+}

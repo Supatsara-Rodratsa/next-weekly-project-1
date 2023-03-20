@@ -26,6 +26,8 @@ type MovieContextType = {
   setAllGenres(list: Set<string>): void;
   selectedGenres: string[];
   setSelectedGenres(list: string[]): void;
+  sortedBy: string;
+  setSortedBy(sort: string): void;
 };
 
 type MovieContextProps = {
@@ -47,6 +49,8 @@ const movieContextDefaultValues: MovieContextType = {
   setAllGenres: () => {},
   selectedGenres: [],
   setSelectedGenres: () => {},
+  sortedBy: "",
+  setSortedBy: () => {},
 };
 
 const MovieContext = createContext<MovieContextType>(movieContextDefaultValues);
@@ -64,6 +68,7 @@ export function MovieProvider({ children }: MovieContextProps) {
   const [currentMovieSearch, setCurrentMovieSearch] = useState<string>("");
   const [allGenres, setAllGenres] = useState<Set<string>>(new Set());
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [sortedBy, setSortedBy] = useState<string>("");
 
   useEffect(() => {
     const currentFavMovie: MovieDTO[] = allMovies.filter((movie: MovieDTO) =>
@@ -97,6 +102,8 @@ export function MovieProvider({ children }: MovieContextProps) {
     setAllGenres,
     selectedGenres,
     setSelectedGenres,
+    sortedBy,
+    setSortedBy,
   };
   return <MovieContext.Provider value={data}>{children}</MovieContext.Provider>;
 }

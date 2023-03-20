@@ -4,36 +4,20 @@ import { useState } from "react";
 import { useMovie } from "@src/contexts/movieContext";
 
 import Button from "../Button";
-import GenreCheckBox from "../GenreCheckBox";
 import Paragraph from "../Paragraph";
 import Select from "../Select";
 
-const Filter = () => {
-  const { setSelectedGenres } = useMovie();
-  const [selectedValue, setSelectedValue] = useState("");
-  const [openGenreDialog, setOpenGenreDialog] = useState(false);
+const Sort = () => {
+  const { setSortedBy, sortedBy } = useMovie();
+  const [selectedValue, setSelectedValue] = useState<string>("");
   const getSelectedValue = (value: string) => {
     setSelectedValue(value);
-    if (value === "Genre") {
-      setOpenGenreDialog(true);
-    }
-  };
-
-  const closeDialog = (val: boolean) => {
-    if (val) {
-      setOpenGenreDialog(false);
-    }
+    setSortedBy(value);
   };
 
   const dialogHandler = () => {
-    if (selectedValue === "Genre") {
-      setOpenGenreDialog(true);
-    }
-  };
-
-  const clearAllValue = () => {
+    setSortedBy("");
     setSelectedValue("");
-    setSelectedGenres([]);
   };
 
   return (
@@ -44,36 +28,29 @@ const Filter = () => {
       className="flex flex-col gap-4"
     >
       <div className="text-center flex gap-3 justify-center items-center">
-        <Paragraph>Filter By:</Paragraph>
+        <Paragraph>Sort By:</Paragraph>
         <Select
-          id="filter"
-          options={["Genre"]}
+          id="Sort"
+          options={["Name", "Rating", "Year"]}
           onSelectedValue={getSelectedValue}
           defaultValue={selectedValue}
         />
-        {selectedValue !== "" && (
+        {sortedBy !== "" && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="flex gap-3"
           >
-            <Button
-              label={`Edit ${selectedValue}`}
-              customStyle="rounded-[30px] p-[2px]"
-              onClick={dialogHandler}
-            />
             <Button
               label={`Clear`}
               customStyle="rounded-[30px] p-[2px]"
-              onClick={clearAllValue}
+              onClick={dialogHandler}
             />
           </motion.div>
         )}
       </div>
-      {openGenreDialog && <GenreCheckBox onCloseDialog={closeDialog} />}
     </motion.div>
   );
 };
 
-export default Filter;
+export default Sort;

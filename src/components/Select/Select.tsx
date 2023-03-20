@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import clsx from "clsx";
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 import * as React from "react";
 
 type SelectProps = {
@@ -19,8 +19,6 @@ const SelectOption = (
   { options, defaultValue = "", id, onSelectedValue, placeholder }: SelectProps,
   ref: any
 ) => {
-  const [currentValue, setCurrentValue] = useState(defaultValue);
-
   const renderOption = (item: string, i: number) => {
     return (
       <MenuItem key={i} value={item}>
@@ -30,7 +28,6 @@ const SelectOption = (
   };
 
   const onChangeValue = (val: string) => {
-    setCurrentValue(val);
     onSelectedValue(val);
   };
 
@@ -64,7 +61,7 @@ const SelectOption = (
           fullWidth
           ref={ref}
           id={id}
-          value={currentValue}
+          value={defaultValue}
           onChange={(event) => onChangeValue(event.target.value)}
           variant="outlined"
           displayEmpty
