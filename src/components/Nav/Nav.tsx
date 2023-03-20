@@ -24,7 +24,7 @@ const Nav = () => {
       >
         {!pathname.includes("/movie/") ? (
           <div className="flex gap-4 items-center justify-between w-full">
-            <div className="flex gap-10">
+            <div className="flex gap-10 mobile:gap-4">
               <Link href="/movie" className="hover:text-red">
                 Home
               </Link>

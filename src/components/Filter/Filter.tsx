@@ -43,7 +43,7 @@ const Filter = () => {
       transition={{ duration: 1 }}
       className="flex flex-col gap-4"
     >
-      <div className="text-center flex gap-3 justify-center items-center">
+      <div className="text-center flex gap-3 justify-center items-center flex-wrap">
         <Paragraph>Filter By:</Paragraph>
         <Select
           id="filter"

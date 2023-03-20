@@ -57,7 +57,7 @@ const MovieWrapper = ({ movieList }: MovieGirdProp) => {
     <div className="p-10">
       {currentMovies.length > 0 ? (
         <div className="flex flex-col gap-8">
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center flex-wrap">
             <Filter />
             <Sort />
           </div>

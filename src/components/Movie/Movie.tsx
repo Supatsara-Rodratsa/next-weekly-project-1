@@ -100,7 +100,7 @@ const Actor = ({ actors }: Pick<MovieDTO, "actors">) => {
 
 const Genre = ({ genre }: Pick<MovieDTO, "genre">) => {
   return (
-    <div className="flex gap-2 items-start mobile:flex-wrap">
+    <div className="flex gap-2 items-start mobile:flex-wrap tablet:flex-wrap">
       <Title fontSize={14}>Genre: </Title>
       {genre.map((item: string, i: number) => (
         <Badge key={i} label={item} />

@@ -19,7 +19,7 @@ const Input = ({ placeholder, onChangeValue }: InputProps) => {
   };
 
   return (
-    <div className="relative w-[350px] tablet:w-[250px]">
+    <div className="relative w-[350px] tablet:w-[250px] mobile:w-[100px]">
       <input
         placeholder={placeholder || "Search.."}
         value={currentValue}
