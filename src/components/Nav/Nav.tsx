@@ -35,7 +35,7 @@ const Nav = () => {
                 History
               </Link>
             </div>
-            <SearchMovie />
+            {pathname.includes("/movie") && <SearchMovie />}
           </div>
         ) : (
           <div className="flex items-center cursor-pointer" onClick={goBack}>
